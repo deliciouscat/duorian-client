@@ -11,9 +11,18 @@ Server로 전송할 html content를 경량화/색인화한다.
 - 기존 라이브러리에서 상속하여 쓸 부분이 있으면 사용한다. 그러나 최대한 content를 보존하는 방향으로 유지해야 한다.
 
 
+# Work flow
+`cheerio + parse5` 방법과 `readability` 방법을 동시에 수행한 후 서로의 장점을 통합.
+- readability 오류 패턴 제거: 지나치게 길고, 코드 기호 너무 많은 경우
+- 휴리스틱하게 parsing 품질 평가: spacing/punctuation 패턴, string length 등
+- 광고/UI요소 단어사전
+
 # 주의할 점
 테스트케이스는 있을 수 있는 여러 시나리오 중 일부일 뿐이다. 테스트 케이스에 과적합된 코드를 작성하지 말 것.
 
 # Duorian-server의 역할
 이 프로젝트(Duorian-client)는 Duorian-server에 대강 parsable하게 정돈되고 pruning된 정보를 넘겨준다.
 Duorian-server는 이를 이어받아, parsing을 위한 쿼리나 함수, 정규식을 생성하고 적용한다.
+
+## Duorian-server 요구 기능
+- content 파트 chunking 해서 분업: Title/Describtion 참고하여 인덱스로 main/suplimentary/residue로 분할
